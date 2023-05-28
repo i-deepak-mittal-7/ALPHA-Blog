@@ -23,6 +23,13 @@ const postSchema = {
 
 const Post = mongoose.model("Post", postSchema);
 
+const adminSchema = {
+  username: String,
+  password: String 
+};
+
+const Admin = mongoose.model("Admin", adminSchema);
+
 var isUserLogin = false;
 
 app.get("/signIn",function(req,res){
@@ -32,10 +39,14 @@ app.get("/signIn",function(req,res){
 app.post("/signIn",function(req,res){
   var username = req.body.username;
   var password = req.body.password;
-  if(username==="Batman" && password==="password"){
-    isUserLogin = true;
-    res.redirect("/compose");
-  } 
+  Admin.findOne({ username: username}, function (err, foundAdmin){
+    if(!err) {
+      if(foundAdmin){
+        if(foundAdmin.password===password)
+          res.render("compose");
+      }
+    }
+  }); 
 });
 
 app.get("/home",function(req,res){
@@ -44,10 +55,6 @@ app.get("/home",function(req,res){
     res.render("home", { homeStartingContent: homeStartingContent, posts: posts })
   }
   });
-});
-
-app.get("/about",function(req,res){
-  res.render("about.ejs",{aboutContent:aboutContent});
 });
 
 app.get("/compose",function(req,res){
@@ -101,22 +108,34 @@ app.post("/deleteConfirm",function(req,res){
   res.render("deleteConfirm.ejs",{deleteId:deleteId});
 });
 
+
+
 app.post("/delete",function(req,res){
   var deleteId=req.body.deleteId;
-  var username=req.body.username;
-  var password=req.body.password;
-  if(username==="Batman" && password==="password"){
-    Post.deleteOne({ _id: deleteId}, function (err){
-      if(!err) {
-        var alert="Successfully deleted the post";
+  var username = req.body.username;
+  var password = req.body.password;
+  Admin.findOne({ username: username}, function (err, foundAdmin){
+    if(!err) {
+      if(foundAdmin){
+        if(foundAdmin.password===password){
+          Post.deleteOne({ _id: deleteId}, function (err){
+            if(!err) {
+              var alert="Successfully deleted the post";
+              res.render("alert.ejs", {alert:alert});
+            }
+          });
+        }
+        else{
+          var alert="Wrong username or password";
+          res.render("alert.ejs", {alert:alert});
+        }
+      }
+      else{
+        var alert="Wrong username or password";
         res.render("alert.ejs", {alert:alert});
       }
-    });
-  }
-  else{
-    var alert="Wrong username or password";
-    res.render("alert.ejs", {alert:alert});
-  }
+    }
+  }); 
 });
 
 app.listen(3000, function() {
