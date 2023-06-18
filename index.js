@@ -31,7 +31,7 @@ app.get("/", auth, function(req,res){
 });
 
 app.get("/login",function(req,res){
-  res.render("login.ejs");
+  res.render("views/login.ejs");
 });
 
 app.post("/login", verify.login);
