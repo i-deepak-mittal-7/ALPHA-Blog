@@ -36,6 +36,5 @@ exports.getAllPosts = async function(req,res){
 exports.getPostById= async function(req,res){
     const postId = req.params.postId;
     const post = await Post.findOne({ _id : postId }).populate('userId');
-    console.log(post);
     res.render('post', {post: post});
 };

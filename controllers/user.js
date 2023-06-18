@@ -10,7 +10,6 @@ exports.profile = async function(req,res) {
         following: following,
         followers: followers,
     }
-    console.log(response);
     res.render('profile', response);
 };
 
@@ -21,7 +20,6 @@ exports.getAllUsers = async function(req,res) {
     usersList.map(user => {
         user.isFollowing = followingUsersList.includes(user._id.toString())
     });
-    console.log(followingUsersList);
     res.render('userList', {usersList: usersList});
 };
 
