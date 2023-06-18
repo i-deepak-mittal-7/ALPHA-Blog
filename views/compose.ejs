@@ -4,11 +4,24 @@
 <form action="/compose" method="post">
     <div class="mb-3">
         <label class="form-label">Title</label>
-        <input type="text" name="postTitle" class="form-control" id="exampleInputEmail1">
+        <input type="text" name="postTitle" class="form-control">
+        <br>
+        <label class="form-label">Read Time (in minutes)</label>
+        <input type="number" name="readTime" class="form-control">
+        <br>
+        <label>
+            <input type="radio" name="isPublic" value="true" checked> Public
+        </label>
+        <label>
+            <input class="ms-5" type="radio" name="isPublic" value="false"> Private
+        </label>
+        <br>
+        <br>
         <div id="emailHelp" class="form-text"> </div>
         <label class="form-label">Post</label>
         <textarea class="form-control" name="postBody" rows="5" cols="30"></textarea>
     </div>
+    
     <button class="btn btn-primary" type="submit" name="button"> Publish </button>
 </form>
 

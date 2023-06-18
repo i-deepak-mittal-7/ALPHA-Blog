@@ -1,6 +1,19 @@
 <%- include("partials/header.ejs") -%>
 
-<h1><%= title %></h1>
-<p><%= content %></p>
+<div class="card-group">
+    <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"> <%= post?.title %> </h5>
+            <p> Created On: <%= post?.createTime %> </p>
+            <p> Reading time: <%= post?.readTime %> minutes</p>
+            <p> <%=post?.content%> </p>
+            <p> Last Updated: <%= post?.lastUpdated %> </p>
+        </div>
+        <div class="card-footer">
+            <small class="text-body-secondary"> Blog by: <%= post?.userId?.name %> </small>
+          </div>
+    </div>
+    </div>
+
 
 <%- include("partials/footer.ejs") -%>
