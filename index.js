@@ -9,6 +9,7 @@ const connection = require('./controllers/connection');
 const session = require('express-session');
 const auth = require('./middleware/auth');
 const path=require("path");
+require('dotenv').config();
 
 const app = express();
 
@@ -27,7 +28,7 @@ app.use(session({
 }));
 
 mongoose.set('strictQuery',false);
-mongoose.connect("mongodb+srv://bat:p1p1@cluster0.urm9th1.mongodb.net/?retryWrites=true&w=majority", {useNewUrlParser: true})
+mongoose.connect(process.env.DB_CONN, {useNewUrlParser: true})
 .then(result=>{console.log("connected")});
 
 app.get("/", auth, function(req,res){
