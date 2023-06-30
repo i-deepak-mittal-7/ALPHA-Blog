@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 
-const conectionSchema = {
+const connectionSchema = {
     follower: {
         type: schema.Types.ObjectId,
         ref: 'User'
@@ -13,4 +13,4 @@ const conectionSchema = {
     isDeleted: Boolean
 };
 
-module.exports =  mongoose.model("conection", conectionSchema);
+module.exports =  mongoose.model("connection", connectionSchema);
