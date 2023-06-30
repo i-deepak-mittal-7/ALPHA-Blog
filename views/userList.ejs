@@ -1,7 +1,7 @@
 <%- include("partials/header.ejs") -%>
 
 <% for(let i = 0; i < usersList.length; i++) { %>
-<div class="card">
+<div class="card mb-4">
     <h5 class="card-header"> Name: <%= usersList[i]?.name %> </h5>
     <div class="card-body">
       <h5 class="card-title">Gender: <%= usersList[i]?.gender %> </h5>
@@ -9,10 +9,9 @@
       <a href="/unfollow/<%= usersList[i]?._id %>" class="btn btn-primary"> Unfollow </a>
       <% } else { %>
         <a href="/follow/<%= usersList[i]?._id %>" class="btn btn-primary"> Follow </a>
-    </div>
-    <% } %>
+      <% } %>
+  </div>
 </div>
-<br>
 <% } %>
 
 <%- include("partials/footer.ejs") -%>
